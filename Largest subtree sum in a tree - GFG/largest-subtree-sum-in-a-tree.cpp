@@ -80,26 +80,21 @@ Node* buildTree(string str) {
 //User function Template for C++
 
 class Solution {
+  private:
+    int res = -1e9;
   public:
     // Function to find largest subtree sum.
-    int sum(Node* root, int &Maxsum){
-        if(root == NULL)
-            return 0;
+    int sum(Node* root){
+        if(root == NULL) return 0;
         
-        int Lsum = sum(root -> left,  Maxsum);
-        int Rsum = sum(root -> right, Maxsum);
-        int sum = root -> data + Lsum + Rsum;
-        
-        Maxsum = max(sum, Maxsum);
-        
-        return sum;
+        int MaxSum = root -> data + sum(root->left) + sum(root->right);
+        res = max(res, MaxSum);
+        return MaxSum;
     }
     
     int findLargestSubtreeSum(Node* root) {
-        int Maxsum = 0;
-        sum(root, Maxsum);
-        
-        return Maxsum;
+        sum(root);
+        return res;
     }
 };
 
